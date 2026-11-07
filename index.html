@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Basket Video Hub - Player</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background: #101D38;
+        }
+
+        .player {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: black;
+        }
+
+        iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="player">
+        <iframe
+            id="youtube-player"
+            title="Basket Video Hub - YouTube Player"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const videoId = params.get("v");
+
+        if (/^[a-zA-Z0-9_-]{11}$/.test(videoId || "")) {
+            document.getElementById("youtube-player").src =
+                "https://www.youtube.com/embed/" +
+                encodeURIComponent(videoId) +
+                "?playsinline=1";
+        } else {
+            document.body.textContent = "Video non valido";
+            document.body.style.color = "white";
+        }
+    </script>
+</body>
+</html>
